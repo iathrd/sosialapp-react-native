@@ -17,7 +17,7 @@ import {AuthContext} from '../Navigation/AuthProviders';
 export default function Login({navigation}) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const {login} = useContext(AuthContext);
+  const {login, googleLogin} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -65,7 +65,7 @@ export default function Login({navigation}) {
         btnType="google"
         color="#de4d41"
         backgroundColor="#f5e7ea"
-        onPress={() => alert('Fv')}
+        onPress={() => googleLogin()}
       />
 
       <TouchableOpacity

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 import Login from '../screens/Login';
 import OnboardingScreen from '../screens/OnboardingScreen';
@@ -21,6 +22,9 @@ export default function AuthStack() {
       } else {
         setIsFirstLaunch(false);
       }
+    });
+    GoogleSignin.configure({
+      webClientId: '279876378955-i5kiag94m5tpl38jikakp19vn3l5ihte.apps.googleusercontent.com',
     });
   }, []);
 
