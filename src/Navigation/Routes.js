@@ -9,7 +9,7 @@ import AppStack from './AppStack';
 
 export default function Routes() {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
 
   function onAuthStateChanged(user) {
     setUser(user);

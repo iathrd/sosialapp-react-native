@@ -5,11 +5,11 @@ import FormButton from '../components/FormButton';
 import {AuthContext} from '../Navigation/AuthProviders';
 
 export default function Home() {
-  const {logout} = useContext(AuthContext);
+  const {logout, user} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>welcome {user.email}</Text>
       <FormButton buttonTitle="Logout" onPress={() => logout()} />
     </View>
   );
