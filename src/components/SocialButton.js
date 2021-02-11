@@ -13,7 +13,8 @@ export default function FormButton({
   let bgColor = backgroundColor;
   return (
     <TouchableOpacity
-      style={[styles.buttonContainer, {backgroundColor: bgColor}]}>
+      style={[styles.buttonContainer, {backgroundColor: bgColor}]}
+      {...rest}>
       <View style={styles.iconWrapper}>
         <Icon style={styles.icon} name={btnType} size={22} color={color} />
       </View>

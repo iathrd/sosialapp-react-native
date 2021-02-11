@@ -4,7 +4,7 @@ import {windowHeight, windowsWidth} from '../utils/Dimentions';
 
 export default function FormButton({buttonTitle, ...rest}) {
   return (
-    <TouchableOpacity style={styles.buttonContainer}>
+    <TouchableOpacity style={styles.buttonContainer} {...rest}>
       <Text style={styles.buttonText}>{buttonTitle}</Text>
     </TouchableOpacity>
   );
