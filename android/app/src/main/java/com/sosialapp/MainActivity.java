@@ -1,6 +1,7 @@
 package com.sosialapp;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.FacebookSdk;
 
 public class MainActivity extends ReactActivity {
 
