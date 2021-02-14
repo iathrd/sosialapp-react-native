@@ -1115,17 +1115,27 @@
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
 "@react-native-firebase/app@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-10.7.0.tgz#db0cd77c2d5e83024797073256d471dc9b27085c"
-  integrity sha512-C8H90p7lf+ZIxA22lxypuA7uJOWRX4GLlll6EXZTnUXHNYaIM8zW8/RPHECJZRPYwisbe+2pIlDwFJjyiRM+Jw==
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-10.8.0.tgz#130dd841183d45ff378e6aab2b6e89a30d7c499d"
+  integrity sha512-VIWVpqb+V4ltOEmpUEfcsA/ZmcV+FLWGMlRGN+xB/cXorD3nYhYF/LPxOtX7TOHrlxPeL2dikLry9hKv4PlZCw==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
 "@react-native-firebase/auth@^10.7.0":
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-10.7.0.tgz#492bb8f0dbfdf7143e7c63d3244355042d589922"
-  integrity sha512-riycjQmoeZ56BiSMQibyXJwjUwHKeKOxC5nRXWUN5mnDP1d9hWbnN5qs+A1Pc68DKtoWDmfIeOJBC8xt28827A==
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-10.8.0.tgz#a13da7a77b9d3f356a94c081e3aedbfa8230e037"
+  integrity sha512-aKKImq/z1kaWNvssWqb0aBgtctH34Pnke6wFTM6GE3R3uGZ57d+lPVl+57az8D3nj5xVwJyNftl6/1WmPzCPBw==
+
+"@react-native-firebase/firestore@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-10.8.0.tgz#1efa15d71b7c89b8c92a36198a2c2c651f8d9c82"
+  integrity sha512-HRt4q/P15ejmHjtQ5j21vFXpSmpMYE9JYyFo6PSonL9wFtuA8ujEeX/OVUf1c8JRAZMdTCVdchHUDdFsABUWUg==
+
+"@react-native-firebase/storage@^10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-10.8.0.tgz#89f41d644c98463350dc175085586db779173cc6"
+  integrity sha512-7u8MYBUy62j8TYngVpipNrLDdIO7kAgHXUU/xhV5x2Gsm3jO2VQLFvh+0rO80wBftlPKgfPzoZGyDKteLXRQFA==
 
 "@react-navigation/bottom-tabs@^5.11.7":
   version "5.11.7"
@@ -1386,6 +1396,11 @@ acorn@^7.1.0, acorn@^7.1.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
 
 ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3:
   version "6.12.6"
@@ -7336,3 +7351,8 @@ yargs@^16.1.1:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+yarn@^1.22.10:
+  version "1.22.10"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.10.tgz#c99daa06257c80f8fa2c3f1490724e394c26b18c"
+  integrity sha512-IanQGI9RRPAN87VGTF7zs2uxkSyQSrSPsju0COgbsKQOOXr5LtcVPeyXWgwVa0ywG3d8dg6kSYKGBuYK021qeA==
