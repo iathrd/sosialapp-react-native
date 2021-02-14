@@ -1,18 +1,22 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import {
   InputField,
   InputWrapper,
   SubmitBtn,
   SubmitBtnText,
   AddImage,
+  StatusWrapper,
 } from '../styles/AddPost';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 export default function AddPost() {
   const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -24,6 +28,55 @@ export default function AddPost() {
       const imageUri = image.path;
       setImage(imageUri);
     });
+  };
+
+  const uploadImage = async () => {
+    if (image == null) {
+      return null;
+    }
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+
+    // Add timestamp to File Name
+    const extension = filename.split('.').pop();
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`photos/${filename}`);
+    const task = storageRef.putFile(uploadUri);
+
+    // Set transferred state
+    task.on('state_changed', (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100,
+      );
+    });
+
+    try {
+      await task;
+
+      const url = await storageRef.getDownloadURL();
+
+      setUploading(false);
+      setImage(null);
+
+      Alert.alert(
+        'Image uploaded!',
+        'Your image has been uploaded to the Firebase Cloud Storage Successfully!',
+      );
+      return url;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
   };
 
   const choosePhotoFromLibrary = () => {
@@ -48,9 +101,16 @@ export default function AddPost() {
           multiline
           numberOfLines={4}
         />
-        <SubmitBtn onPress={console.log('PPP')}>
-          <SubmitBtnText>Post</SubmitBtnText>
-        </SubmitBtn>
+        {uploading ? (
+          <StatusWrapper>
+            <Text>{transferred} % Completed!</Text>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </StatusWrapper>
+        ) : (
+          <SubmitBtn onPress={uploadImage}>
+            <SubmitBtnText>Post</SubmitBtnText>
+          </SubmitBtn>
+        )}
       </InputWrapper>
       <ActionButton buttonColor="rgba(231,76,60,1)">
         <ActionButton.Item
