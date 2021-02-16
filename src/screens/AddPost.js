@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet, Alert, ActivityIndicator} from 'react-native';
 import {
   InputField,
@@ -11,12 +11,18 @@ import {
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+
 import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+
+import {AuthContext} from '../Navigation/AuthProviders';
 
 export default function AddPost() {
+  const {user} = useContext(AuthContext);
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const [post, setPost] = useState(null);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -28,6 +34,28 @@ export default function AddPost() {
       const imageUri = image.path;
       setImage(imageUri);
     });
+  };
+
+  const submitPost = async () => {
+    const imageUrl = await uploadImage();
+
+    firestore()
+      .collection('posts')
+      .add({
+        userId: user.uid,
+        post: post,
+        postImg: imageUrl,
+        postTime: firestore.Timestamp.fromDate(new Date()),
+        likes: null,
+        comments: null,
+      })
+      .then(() => {
+        console.log('Post added');
+        setPost(null)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const uploadImage = async () => {
@@ -99,7 +127,9 @@ export default function AddPost() {
         <InputField
           placeholder="What's on your mind?"
           multiline
+          value={post}
           numberOfLines={4}
+          onChangeText={(content) => setPost(content)}
         />
         {uploading ? (
           <StatusWrapper>
@@ -107,7 +137,7 @@ export default function AddPost() {
             <ActivityIndicator size="large" color="#0000ff" />
           </StatusWrapper>
         ) : (
-          <SubmitBtn onPress={uploadImage}>
+          <SubmitBtn onPress={submitPost}>
             <SubmitBtnText>Post</SubmitBtnText>
           </SubmitBtn>
         )}

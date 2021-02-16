@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {
   Container,
@@ -15,10 +15,13 @@ import {
   InteractionText,
   Devider,
 } from '../styles/FeedStyles';
+import {AuthContext} from '../Navigation/AuthProviders';
+import moment from 'moment'
 
-export default function PostCard({item}) {
+export default function PostCard({item, onDelete}) {
   const likeIcon = item.liked ? 'heart' : 'heart-outline';
   const likeIconColor = item.liked ? '#2e64e5' : '#333';
+  const {user} = useContext(AuthContext);
   let likeText = '';
   let commenText = '';
 
@@ -44,12 +47,12 @@ export default function PostCard({item}) {
         <UserImg source={item.userImg} />
         <UserInfoText>
           <UserName>{item.userName}</UserName>
-          <PostTime>{item.postTime}</PostTime>
+          <PostTime>{moment(item.postTime.toDate()).fromNow()}</PostTime>
         </UserInfoText>
       </UserInfo>
       <PostText>{item.post}</PostText>
-      {item.postImg !== 'none' ? (
-        <PostImg source={item.postImg} />
+      {item.postImg !== null ? (
+        <PostImg source={{uri: item.postImg}} />
       ) : (
         <Devider />
       )}
@@ -62,6 +65,11 @@ export default function PostCard({item}) {
           <IonIcons name="md-chatbubble-outline" size={25} />
           <InteractionText>{commenText}</InteractionText>
         </Interaction>
+        {user.uid === item.userId ? (
+          <Interaction onPress={() => onDelete(item.id)}>
+            <IonIcons name="md-trash-bin" size={25} />
+          </Interaction>
+        ) : null}
       </InteractionWrapper>
     </Card>
   );
