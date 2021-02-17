@@ -1,8 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  Alert,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import FormButton from '../components/FormButton';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import PostCard from '../components/PostCard';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import {AuthContext} from '../Navigation/AuthProviders';
 
@@ -126,15 +136,101 @@ export default function Home() {
   }, [deleted]);
 
   return (
-    <Container>
-      <FlatList
-        data={post}
-        renderItem={({item}) => (
-          <PostCard item={item} onDelete={handleDelete} />
-        )}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
-    </Container>
+    <SafeAreaView style={{flex: 1}}>
+      {loading ? (
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{alignItems: 'center'}}>
+          <SkeletonPlaceholder>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: 15,
+                marginTop: 15,
+              }}>
+              <View style={{width: 60, height: 60, borderRadius: 50}} />
+              <View style={{marginLeft: 20}}>
+                <View style={{width: 120, height: 20, borderRadius: 4}} />
+                <View
+                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
+                />
+              </View>
+            </View>
+            <View style={{marginTop: 10, marginBottom: 30}}>
+              <View
+                style={{
+                  width: 300,
+                  height: 20,
+                  borderRadius: 4,
+                  marginLeft: 15,
+                }}
+              />
+              <View
+                style={{
+                  marginTop: 6,
+                  width: 250,
+                  height: 20,
+                  borderRadius: 4,
+                  marginLeft: 15,
+                }}
+              />
+              <View
+                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
+              />
+            </View>
+          </SkeletonPlaceholder>
+          <SkeletonPlaceholder>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: 15,
+              }}>
+              <View style={{width: 60, height: 60, borderRadius: 50}} />
+              <View style={{marginLeft: 20}}>
+                <View style={{width: 120, height: 20, borderRadius: 4}} />
+                <View
+                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
+                />
+              </View>
+            </View>
+            <View style={{marginTop: 10, marginBottom: 30}}>
+              <View
+                style={{
+                  width: 300,
+                  height: 20,
+                  borderRadius: 4,
+                  marginLeft: 15,
+                }}
+              />
+              <View
+                style={{
+                  marginTop: 6,
+                  width: 250,
+                  height: 20,
+                  borderRadius: 4,
+                  marginLeft: 15,
+                }}
+              />
+              <View
+                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
+              />
+            </View>
+          </SkeletonPlaceholder>
+        </ScrollView>
+      ) : (
+        <Container>
+          <FlatList
+            data={post}
+            renderItem={({item}) => (
+              <PostCard item={item} onDelete={handleDelete} />
+            )}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        </Container>
+      )}
+    </SafeAreaView>
   );
 }

@@ -16,7 +16,8 @@ import {
   Devider,
 } from '../styles/FeedStyles';
 import {AuthContext} from '../Navigation/AuthProviders';
-import moment from 'moment'
+import moment from 'moment';
+import ProgresiveImage from './ProgresiveImage';
 
 export default function PostCard({item, onDelete}) {
   const likeIcon = item.liked ? 'heart' : 'heart-outline';
@@ -52,7 +53,13 @@ export default function PostCard({item, onDelete}) {
       </UserInfo>
       <PostText>{item.post}</PostText>
       {item.postImg !== null ? (
-        <PostImg source={{uri: item.postImg}} />
+        // <PostImg source={{uri: item.postImg}} />
+        <ProgresiveImage
+          defaultImageSource={require('../../assets/default-img.jpg')}
+          source={{uri: item.postImg}}
+          style={{width: '100%', height: 250, marginTop: 15}}
+          resizeMode="cover"
+        />
       ) : (
         <Devider />
       )}
