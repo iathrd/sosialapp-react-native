@@ -3,6 +3,7 @@ import {Button, View} from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,13 +11,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Home from '../screens/Home';
 import AddPost from '../screens/AddPost';
-import Profile from '../screens/Profile'
-import EditProfile from '../screens/EditProfile'
-import Message from '../screens/Message'
-import Chat from '../screens/Chat'
+import Profile from '../screens/Profile';
+import EditProfile from '../screens/EditProfile';
+import Message from '../screens/Message';
+import Chat from '../screens/Chat';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
@@ -129,16 +130,12 @@ const ProfileStack = ({navigation}) => (
 );
 
 export default function AppStack() {
-  // const getTabBarVisibility = (route) => {
-  //   const routeName = route.state
-  //     ? route.state.routes[route.state.index].name
-  //     : '';
-
-  //   if (routeName === 'Chat') {
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const setTabBarVisible = (route) => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    const hideOnScreens = ['Chat'];
+    if (hideOnScreens.indexOf(routeName) > -1) return false;
+    return true;
+  };
 
   return (
     <Tab.Navigator
@@ -164,11 +161,7 @@ export default function AppStack() {
         name="Messages"
         component={MessageStack}
         options={({route}) => ({
-          // tabBarVisible: getTabBarVisibility(route),
-          // Or Hide tabbar when push!
-          // https://github.com/react-navigation/react-navigation/issues/7677
-          // tabBarVisible: route.state && route.state.index === 0,
-          // tabBarLabel: 'Home',
+          tabBarVisible: setTabBarVisible(route),
           tabBarIcon: ({color, size}) => (
             <Ionicons
               name="chatbox-ellipses-outline"

@@ -57,7 +57,7 @@ export default function PostCard({item, onDelete}) {
         <ProgresiveImage
           defaultImageSource={require('../../assets/default-img.jpg')}
           source={{uri: item.postImg}}
-          style={{width: '100%', height: 250, marginTop: 15}}
+          style={{width: '100%', height: 250}}
           resizeMode="cover"
         />
       ) : (
