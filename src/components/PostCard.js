@@ -58,7 +58,7 @@ export default function PostCard({item, onDelete}) {
           defaultImageSource={require('../../assets/default-img.jpg')}
           source={{uri: item.postImg}}
           style={{width: '100%', height: 250}}
-          resizeMode="cover"
+          resizeMode='cover'
         />
       ) : (
         <Devider />
